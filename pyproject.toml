@@ -1,0 +1,31 @@
+# Poetry/Hatch dependencies and project metadata
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "readme-ai"
+version = "0.1.0"
+description = "AI-powered README generator"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "tree-sitter>=0.22.0",
+    "tree-sitter-python",
+    "tree-sitter-javascript",
+    "tree-sitter-go",
+    "tree-sitter-rust",
+    "dspy-ai",
+    "litellm",
+    "fastapi",
+    "uvicorn",
+    "streamlit",
+    "pathspec"
+    "python-dotenv"
+]
+
+[project.scripts]
+readme-ai = "readme_ai.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

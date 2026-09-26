@@ -1,0 +1,6 @@
+# User-defined paths to skip parsing
+myproject/
+.venv/
+__pycache__/
+*.pyc
+.env
