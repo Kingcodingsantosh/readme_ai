@@ -7,13 +7,15 @@ import streamlit as st
 from readme_ai.__main__ import scan_repository, get_project_metadata
 from readme_ai.ai.router import generate_documentation
 from readme_ai.core.builder import generate_badges
+from readme_ai.core.parser import generate_repo_skeleton
+
 
 load_dotenv()
 st.set_page_config(page_title="README AI", page_icon="📝", layout="wide")
 
 @st.cache_data(show_spinner=False)
 def cached_scan(path: str):
-    return scan_repository(path)
+    return generate_repo_skeleton(path)
 
 st.title("📝 README Auto-Generator")
 st.markdown("Instantly generate professional documentation for your codebases.")
@@ -42,6 +44,7 @@ if generate_btn:
         with st.spinner(f"🔍 Scanning {repo_name}..."):
             skeletons = cached_scan(repo_path)
             
+            
         if not skeletons:
             st.warning("No supported code files found to parse in this directory.")
         else:
@@ -54,7 +57,8 @@ if generate_btn:
             with st.spinner(f"⚙️ Generating docs using {model_name}..."):
                 try:
                     sections = generate_documentation(skeletons, metadata, repo_name, use_local=not use_cloud)
-                    badges = generate_badges(skeletons, metadata)
+                    
+                    badges = generate_badges(skeletons)
                     
                     # 4. Assemble the Markdown
                     final_md = f"# {repo_name}\n\n"

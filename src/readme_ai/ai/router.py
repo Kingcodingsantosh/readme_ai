@@ -24,6 +24,12 @@ class GenerateReadmeModule(dspy.Signature):
     2. Installation: Do NOT instruct the user to manually create configuration files or copy dependencies (e.g., pyproject.toml). Only provide the basic install command (e.g., pip install readme-ai).
     3. Usage: Explain how to execute the main commands or launch the UI. Do not instruct the user to edit the source code.
     4. Always include a brief License section at the end referencing the MIT License.
+    5. Full Stack Scope: Analyze the entire provided file tree. If frontend files are present alongside a backend, you MUST document the full stack, not just the backend.
+    6. Environment Setup: If python-dotenv, .env.example, or external APIs are detected, you MUST include a dedicated "Environment Setup" step instructing the user to create a .env file and add their keys before running the app.
+    7. Pathing Consistency: Maintain a strict, consistent working directory in all terminal commands. Do not duplicate path navigation (e.g., if you instruct the user to `cd backend`, subsequent commands must be relative to that folder, like `python app.py`).
+    8. Structure Accuracy: Base the "Project Structure" exactly on the provided skeleton. Do not omit crucial files like requirements.txt, .env, or frontend directories. Do not include virtual environments like 'myvenv'.
+    9. Perspective: Write for an end-user using the software. Do NOT instruct the user to manually create configuration files like pyproject.toml.
+    10. Formatting: You MUST provide the actual terminal commands inside markdown code blocks (```bash) for the Installation and Usage sections.
     """
     code_skeleton = dspy.InputField(desc="Parsed AST skeleton of the target repository")
     project_metadata = dspy.InputField(desc="Metadata like package name and core dependencies")
